@@ -1,3 +1,4 @@
+// DATA FOR NODES GOES BELOW
 const nodeData = [
     {
         x:0,
@@ -42,6 +43,8 @@ const nodeData = [
         externalForceType: null
     }
 ];
+
+// DATA FOR MEMBERS GO BELOW
 
 const members = [
     {
@@ -136,7 +139,7 @@ function getConnectedNodes(nodeNum){
     return connectedNodes;
 }
 
-// console.log(getConnectedNodes(0));
+// FUNCTION TO GET FORCES ON A SINGLE NODE
 
 function getForces(nodeNum){
     const connectedNodes = getConnectedNodes(nodeNum);
@@ -162,13 +165,15 @@ function getForces(nodeNum){
     return forcesFromEachMember;
 }
 
+// FUCNTION TO GET REQUIRED DOWEL LENGTH FOR A NODE BELOW
+
 function getDowelLength(nodeNum){
     const connectedNodes = getConnectedNodes(nodeNum);
     const zIndiceis = connectedNodes.map(node => node.zIndex);
     return Math.max(...zIndiceis) + 1;
 }
 
-let maxShear = null;
+// FUNCTION TO GET MAX SHEAR ON A SINGLE DOWEL(NODE)
 
 function getMaxShear(nodeNum){
     const forces = getForces(nodeNum);
@@ -199,6 +204,8 @@ function getMaxShear(nodeNum){
     }
     return Math.max(...shearMagnitudeByZIndex) > Math.abs(Math.min(...shearMagnitudeByZIndex)) ? Math.max(...shearMagnitudeByZIndex) : Math.min(...shearMagnitudeByZIndex);
 }
+
+// FUNCTION TO GET MAX MOMENT ON A SINGLE DOWEL(NODE)
 
 function getMaxMoment(nodeNum){
     const forces = getForces(nodeNum);
@@ -241,6 +248,8 @@ function getMaxMoment(nodeNum){
     return Math.max(...momentMagnitudeByZIndex) > Math.abs(Math.min(...momentMagnitudeByZIndex)) ? Math.max(...momentMagnitudeByZIndex) : Math.min(...momentMagnitudeByZIndex);
 }
 
+
+// EXAMPLES FOR FUNCTION EXECUTION
 console.log(getForces(0));
 console.log(getDowelLength(0));
 console.log(getMaxShear(0));
